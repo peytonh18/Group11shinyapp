@@ -1,21 +1,20 @@
 library(shiny)
-
-
+library(fpp3)
+data("tourism")
 ui <- fluidPage(
   
-  selectInput(inputId= "Selected_Region",
-              label= "Region" ,
-              choices = "Alice Springs" ),
-  plotOutput("autoplot")
+  
+  plotOutput("Regions")
 )
 
 server <- function(input, output, session) {
   
-  output$autoplot <- renderPlot({
-    RegionSelect <- subset(tourism, Region == input$selected_region)
-    autoplot(RegionSelect)
-  })
+  output$Regions <- renderPlot({
+    PLOT <- filter(tourism, Region == "Alice Springs")
+    autoplot(PLOT)}, res = 96)
+  
   
 }
 
+shinyApp(ui, server)
 shinyApp(ui= ui , server= server)
